@@ -25,6 +25,12 @@ describe Oystercard do
   describe '#touch_in' do
     it { is_expected.to respond_to(:touch_in)}
 
+    it 'remember the entry station' do
+      subject.top_up(10)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq(station)
+    end
+
     it 'card is in journey' do
       subject.top_up(Oystercard::MIN_BALANCE)
       subject.touch_in(station)
@@ -35,11 +41,6 @@ describe Oystercard do
     expect { subject.touch_in(station) }.to raise_error 'Insufficient funds'
     end
 
-    it "expects that the card remembers the entry station" do
-      subject.top_up(10)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq(station)
-    end
   end
 
   describe '#touch_out' do
@@ -80,9 +81,6 @@ describe Oystercard do
       expect(subject.exit_station).to eq(station)
     end
 
-  end
-
-  describe '#History' do 
   end
 
 

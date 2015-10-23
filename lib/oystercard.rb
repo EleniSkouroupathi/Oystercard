@@ -2,7 +2,7 @@ require_relative "station.rb"
 
 class Oystercard
 
-  attr_reader :balance, :entry_station, :exit_station
+  attr_reader :balance, :entry_station, :exit_station, :history
 
   MAX_BALANCE = 90
   MIN_BALANCE = 1
@@ -13,6 +13,7 @@ class Oystercard
     @in_journey = false
     @entry_station = nil
     @exit_station = nil
+    @history = []
 
   end
 
@@ -34,9 +35,11 @@ class Oystercard
   def touch_out(station)
     raise StandardError, 'Error: card not touched in' if @in_journey == false
     @in_journey = false
-    @entry_station = nil
+    @entry_station = entry_station
     deduct(MIN_FARE)
     @exit_station = station
+    @history = {@entry_station => @exit_station}
+    @entry_station = nil
   end
 
   private
