@@ -17,32 +17,32 @@ class Oystercard
   end
 
   def top_up(amount)
-  	raise StandardError, "Cannot exceed #{MAX_BALANCE} pounds" if (balance + amount) > MAX_BALANCE
-  	@balance += amount
+    raise StandardError, "Cannot exceed #{MAX_BALANCE} pounds" if (balance + amount) > MAX_BALANCE
+    @balance += amount
   end
 
   def touch_in(station)
-  	raise StandardError, 'Insufficient funds' if (balance) < MIN_BALANCE
+    raise StandardError, 'Insufficient funds' if (balance) < MIN_BALANCE
     @entry_station = station
-  	@in_journey = true
+    @in_journey = true
   end
 
   def in_journey?
-  	!!entry_station
+    !!entry_station
   end
 
   def touch_out(station)
     raise StandardError, 'Error: card not touched in' if @in_journey == false
-  	@in_journey = false
+    @in_journey = false
     @entry_station = nil
-  	deduct(MIN_FARE)
+    deduct(MIN_FARE)
     @exit_station = station
   end
 
   private
 
   def deduct(amount)
-  	@balance -= amount
+    @balance -= amount
   end
 
 end
