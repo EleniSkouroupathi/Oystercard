@@ -25,11 +25,11 @@ describe Oystercard do
   describe '#touch_in' do
     it { is_expected.to respond_to(:touch_in)}
 
-    it 'remember the entry station' do
-      subject.top_up(10)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq(station)
-    end
+    # it 'remember the entry station' do
+    #   subject.top_up(10)
+    #   subject.touch_in(station)
+    #   expect(subject.entry_station).to eq(station)
+    # end
 
     it 'card is in journey' do
       subject.top_up(Oystercard::MIN_BALANCE)
@@ -46,11 +46,11 @@ describe Oystercard do
   describe '#touch_out' do
     it { is_expected.to respond_to(:touch_out)}
 
-    it 'reduces journey fare' do
-      subject.top_up(10)
-      subject.touch_in(station)
-      expect {subject.touch_out(station)}.to change{subject.balance}.by(-1)
-    end
+    # it 'reduces journey fare' do
+    #   subject.top_up(10)
+    #   subject.touch_in(station)
+    #   expect {subject.touch_out(station)}.to change{subject.balance}.by(-1)
+    # end
 
     it 'card is no longer in journey' do
       subject.top_up(Oystercard::MIN_BALANCE)
@@ -66,20 +66,20 @@ describe Oystercard do
       expect {subject.touch_out(station)}.to raise_error 'Error: card not touched in'
 
     end
+#
+    # it "expect to set entry_station equal to nil" do
+    #   subject.top_up(Oystercard::MIN_BALANCE)
+    #   subject.touch_in(station)
+    #   subject.touch_out(station)
+    #   expect(subject.entry_station).to eq(nil)
+    # end
 
-    it "expect to set entry_station equal to nil" do
-      subject.top_up(Oystercard::MIN_BALANCE)
-      subject.touch_in(station)
-      subject.touch_out(station)
-      expect(subject.entry_station).to eq(nil)
-    end
-
-    it "expects that the card remembers the exit station" do
-      subject.top_up(10)
-      subject.touch_in(station)
-      subject.touch_out(station)
-      expect(subject.exit_station).to eq(station)
-    end
+    # it "expects that the card remembers the exit station" do
+    #   subject.top_up(10)
+    #   subject.touch_in(station)
+    #   subject.touch_out(station)
+    #   expect(subject.exit_station).to eq(station)
+    # end
 
   end
 
